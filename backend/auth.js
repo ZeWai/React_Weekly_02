@@ -2,10 +2,8 @@ const passport = require('passport')
 const passportJWT = require('passport-jwt')
 const config = require('./config')
 const ExtractJwt = passportJWT.ExtractJwt
-const knexfile = require('./knexfile').development
-const knex = require('knex')(knexfile)
 
-module.exports = () => {
+module.exports = (knex) => {
   const strategy = new passportJWT.Strategy(
     {
       secretOrKey: config.jwtSecret,

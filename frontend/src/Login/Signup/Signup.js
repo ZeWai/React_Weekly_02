@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Modal, Row, Col } from "react-bootstrap";
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from "react-redux";
-
+import { signupUserThunk } from '../../store/auth/action'
 
 export default function Signup() {
     const [username, setUsername] = useState('')
@@ -13,6 +13,16 @@ export default function Signup() {
     let navigate = useNavigate();
 
     let authenticated = useSelector((state) => state.authStore.auth);
+
+    const signup = (e) => {
+        e.preventDefault();
+        username.length > 0 &&
+            password.length > 0 &&
+            dispatch(signupUserThunk(username, password)
+            )
+        // console.log(process.env.REACT_APP_API_SERVER, 'api');
+
+    };
 
     useEffect(() => {
         if (authenticated) {
@@ -54,15 +64,7 @@ export default function Signup() {
             </Modal.Body>
             <Modal.Footer className={style.modalfooter}>
                 {/* <span>{error}</span> */}
-                <button className={style.modalbutton} onChange={(e) => {
-                    e.preventDefault();
-                    username.length > 0 &&
-                        password.length > 0 &&
-                        dispatch(props.thunk(
-                            username,
-                            password
-                        ))
-                }}>Sign up</button>
+                <button className={style.modalbutton} onChange={signup}>Sign up</button>
             </Modal.Footer>
         </div>
     )

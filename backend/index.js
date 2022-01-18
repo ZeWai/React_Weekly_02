@@ -1,26 +1,21 @@
 const express = require("express");
 const cors = require("cors");
-const knexfile = require("./knexfile").development;
 const knex = require("knex")(knexfile);
-const authClass = require("./auth")(knex);
-
+const knexfile = require("./knexfile").development;
+const auth = require("./auth")(knex);
 const app = express();
+const Router = require("./Router/Router");
+const Service = require("./Service/Service");
+
 app.use(cors());
-
-const TodoRouter = require("./Router/Router");
-const TodoService = require("./Service/Service");
-
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(auth.initialize());
 
-// set up auth file
-app.use(authClass.initialize());
-
-// set up service file
-let todoService = new TodoService(knex);
+const services = new Service(knex);
 
 //set up router file
-app.use("/api", new TodoRouter(todoService, authClass).router());
+app.use("/api", new Router(services, auth).router());
 
 app.listen(8080, () => {
     console.log("Application listening to port 8080");

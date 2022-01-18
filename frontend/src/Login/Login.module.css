@@ -13,8 +13,8 @@
 .background {
   content: "";
   position: absolute;
-  width: 38vw;
-  height: 38vw;
+  width: 35vw;
+  height: 35vw;
   background: black;
   border-radius: 50%;
   z-index: 1;
@@ -22,8 +22,8 @@
 .backgroundafter {
   content: "";
   position: absolute;
-  width: 40vw;
-  height: 40vw;
+  width: 35vw;
+  height: 35vw;
   background: linear-gradient(45deg, transparent, transparent 40%, #e5f403);
   border-radius: 50%;
   z-index: 0;

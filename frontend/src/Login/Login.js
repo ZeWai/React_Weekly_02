@@ -4,9 +4,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from 'react-router-dom'
 import { Modal } from "react-bootstrap";
 import Signup from './Signup/Signup'
-import { loginUserThunk, signupUserThunk } from '../store/auth/action'
+import { loginUserThunk } from '../store/auth/action'
 
-export default function Login(props) {
+export default function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const auth = useSelector((state) => state.authStore.isAuthenticated);
@@ -57,7 +57,7 @@ export default function Login(props) {
                     setModal(!modal);
                 }}>Signup</button>
                 <Modal show={modal} onHide={modalClose} centered size="lg" >
-                    <Signup thunk={signupUserThunk} />
+                    <Signup/>
                 </Modal>
             </div>
         </div>
