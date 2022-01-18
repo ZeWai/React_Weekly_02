@@ -1,0 +1,35 @@
+.modal {
+  background-color: #303030;
+  color: white;
+}
+
+.modalhearder {
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  font-weight: bold;
+  font-size: 30px;
+  border: none;
+}
+
+.modalbutton {
+  color: white;
+  border-radius: 50px;
+  background-color: #303030;
+  border: none;
+  padding: 0 20px;
+}
+.modalbutton:hover {
+  color: black;
+  background-color: #e3e3e3;
+  border: none;
+  transition: 1s;
+}
+
+.modalfooter {
+  border: none;
+  align-items: center;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}

@@ -1,0 +1,70 @@
+.loginpage {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: black;
+  z-index: -1;
+}
+
+.background {
+  content: "";
+  position: absolute;
+  width: 38vw;
+  height: 38vw;
+  background: black;
+  border-radius: 50%;
+  z-index: 1;
+}
+.backgroundafter {
+  content: "";
+  position: absolute;
+  width: 40vw;
+  height: 40vw;
+  background: linear-gradient(45deg, transparent, transparent 40%, #e5f403);
+  border-radius: 50%;
+  z-index: 0;
+  animation: animate 2s linear infinite;
+}
+@keyframes animate {
+  0% {
+    transform: rotate(0deg);
+    filter: hue-rotate(0deg) blur(100px);
+  }
+  100% {
+    transform: rotate(360deg);
+    filter: hue-rotate(360deg) blur(100px);
+  }
+}
+
+.content {
+  z-index: 10;
+  color: white;
+  width: 35vw;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+
+.heading {
+  font-weight: bold;
+  font-size: 2em;
+}
+
+.btn {
+  color: white;
+  background: none;
+  border: none;
+  border-radius: 20px;
+  padding: 0 20px;
+}
+
+.btn:hover {
+  background: white;
+  border: none;
+  color: black;
+  transition: 1s;
+}
