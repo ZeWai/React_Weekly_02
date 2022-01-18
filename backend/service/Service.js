@@ -14,14 +14,14 @@ class Service {
       .where({ username: Username })
       .then((data) => data[0]);
 
-    // if (await bcrypt.compare(password, user.password)) {
-    //   let payload = {
-    //     id: user.id,
-    //   };
+    if (await bcrypt.compare(password, user.password)) {
+      let payload = {
+        id: user.id,
+      };
 
-    //   let token = jwt.sign(payload, config.jwtSecret);
-    //   return token;
-    // }
+      let token = jwt.sign(payload, config.jwtSecret);
+      return token;
+    }
     console.log(user)
   }
 
