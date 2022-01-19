@@ -8,7 +8,7 @@ import {
 } from "./action";
 
 const initialState = {
-    todos: [],
+    lists: [],
     name: "",
 };
 
@@ -22,22 +22,22 @@ export function todoReducer(state = initialState, action) {
             };
         case ADD_TODO:
             return {
-                todos: state.todos.concat([action.payload]),
+                lists: [action.payload].concat(state.lists),
                 name: state.name,
             };
         case EDIT_TODO:
             let newTodo = action.payload[0];
-            let index = state.todos.findIndex((i) => i.id === newTodo.id);
+            let index = state.lists.findIndex((i) => i.id === newTodo.id);
 
-            state.todos.splice(index, 1, newTodo);
+            state.lists.splice(index, 1, newTodo);
             return {
-                todos: state.todos,
+                lists: state.lists,
                 name: state.name,
             };
         case DELETE_TODO:
             return {
                 name: state.name,
-                todos: state.todos.filter((todo) => {
+                lists: state.lists.filter((todo) => {
                     console.log(action.payload);
                     return todo.id !== action.payload;
                 }),
@@ -45,12 +45,12 @@ export function todoReducer(state = initialState, action) {
         case GET_TODOS:
             return {
                 name: state.name,
-                todos: state.todos.concat(action.payload).sort((a, b) => a.id - b.id),
+                lists: state.lists.concat(action.payload).sort((a, b) => a.id - b.id),
             };
         case CLEAR_TODOS:
             return {
                 name: state.name,
-                todos: [],
+                lists: [],
             };
         default:
             return state;

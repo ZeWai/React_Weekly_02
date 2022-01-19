@@ -7,3 +7,24 @@
   color: white;
   background-color: black;
 }
+
+.checkbox {
+  /* display: none; */
+}
+
+.checkboxlabel {
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+  background-color: aqua;
+  color: black;
+  padding: 3px 30px;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  border-radius: 30px;
+  transition: 0.5s;
+  overflow: hidden;
+}
+
+.checkboklabel {
+  background: white;
+}

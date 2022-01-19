@@ -6,25 +6,21 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useSelector } from "react-redux";;
 
 function RequireAuth({ children }) {
-  let isAuthenticated = useSelector((state) => state.authStore.isAuthenticated);
-  return isAuthenticated ? children : <Navigate to='/login' />;
+  let auth = useSelector((state) => state.authStore.auth);
+  return auth ? children : <Navigate to='/login' />;
 }
 
 function NotRequireAuth({ children }) {
-  let isAuthenticated = useSelector((state) => state.authStore.isAuthenticated);
-  return isAuthenticated ? <Navigate to='/' /> : children;
+  let auth = useSelector((state) => state.authStore.auth);
+  return auth ? <Navigate to='/' /> : children;
 }
 function App() {
   return (
     <>
       <BrowserRouter>
         <Routes>
-          {/* <Route path='/' element={<Todolist />} />
-          <Route path='/signup' element={<Signup />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='*' element={<Todolist />} /> */}
-          <Route path='/' element={<Navigate to='/todolist' />} />
-          <Route path='/todolist' element={<RequireAuth><Todolist /></RequireAuth>} />
+          <Route path='/' element={<Navigate to='/todolists' />} />
+          <Route path='/todolists' element={<RequireAuth><Todolist /></RequireAuth>} />
           <Route path='/signup' element={<NotRequireAuth><Signup /></NotRequireAuth>} />
           <Route path='/login' element={<NotRequireAuth><Login /></NotRequireAuth>} />
         </Routes>

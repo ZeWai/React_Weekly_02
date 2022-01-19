@@ -44,25 +44,25 @@ class Service {
   }
 
   list(user) {
-    let todos = this.knex("todos").select("*").where({ users_id: user.id });
-    return todos;
+    let lists = this.knex("lists").select("*").where({ users_id: user.id });
+    return lists;
   }
 
-  add(user, title) {
+  add(user, todolists) {
     let todo = {
-      title: title,
+      todolists: todolists,
       users_id: user.id,
     };
-    let TODO = this.knex.insert(todo).into("todos").returning("*");
+    let TODO = this.knex.insert(todo).into("lists").returning("*");
     return TODO;
   }
 
-  update(user, title, id) {
+  update(user, todolists, id) {
     let todo = {
-      title: title,
+      todolists: todolists,
       users_id: user.id,
     };
-    let TODO_NEW = this.knex("todos")
+    let TODO_NEW = this.knex("lists")
       .update(todo)
       .where({ id: id })
       .returning("*");
@@ -70,7 +70,7 @@ class Service {
   }
 
   remove(user, id) {
-    let TODO_DELETE = this.knex("todos")
+    let TODO_DELETE = this.knex("lists")
       .where({ id: id })
       .andWhere({ users_id: user.id })
       .del();

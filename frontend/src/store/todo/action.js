@@ -5,7 +5,7 @@ export const EDIT_TODO = "EDIT TODO";
 export const DELETE_TODO = "DELETE TODO";
 export const GET_TODOS = "GET_TODOS";
 export const CLEAR_TODOS = "CLEAR_TODOS";
-
+export const EDIT_DONE = "EDIT_DONE"
 export const GET_INFO = "GET_INFO";
 
 export function GetInfo(info) {
@@ -29,6 +29,13 @@ export function EditTodo(todo) {
     };
 }
 
+export function EditDone(todo) {
+    return {
+        type: EDIT_DONE,
+        payload: todo,
+    };
+}
+
 export function DeleteTodo(id) {
     return (dispatch) => {
         dispatch({
@@ -38,10 +45,10 @@ export function DeleteTodo(id) {
     };
 }
 
-export function GetTodos(todos) {
+export function GetTodos(lists) {
     return {
         type: GET_TODOS,
-        payload: todos,
+        payload: lists,
     };
 }
 
@@ -50,7 +57,7 @@ export function GetInfoThunk() {
         let token = localStorage.getItem("LoggedInToken");
 
         axios
-            .get(`${process.env.REACT_APP_API_SERVER}/api/info`, {
+            .get(`http://localhost:8080/api/info`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -67,7 +74,7 @@ export function GetTodosThunk() {
         let token = localStorage.getItem("LoggedInToken");
         console.log("Getting todoss");
         axios
-            .get(`${process.env.REACT_APP_API_SERVER}/api/todos`, {
+            .get(`http://localhost:8080/api/todolists`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -81,15 +88,12 @@ export function GetTodosThunk() {
 
 export function AddTodoThunk(todo) {
     console.log(" add todo thunk:", todo);
-
     return (dispatch) => {
         let token = localStorage.getItem("LoggedInToken");
-        console.log("Adding todo");
-        console.log(token);
         axios
             .post(
-                `${process.env.REACT_APP_API_SERVER}/api/todos`,
-                { title: todo.title },
+                `http://localhost:8080/api/todolists`,
+                { todolists: todo.plan },
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -104,12 +108,14 @@ export function AddTodoThunk(todo) {
 }
 
 export function EditTodoThunk(todo) {
+    console.log(todo, 'here')
+
     return (dispatch) => {
         let token = localStorage.getItem("LoggedInToken");
         axios
             .put(
-                `${process.env.REACT_APP_API_SERVER}/api/todos`,
-                { title: todo.title, id: todo.id },
+                `http://localhost:8080/api/todolists`,
+                { todolists: todo.plan, id: todo.id },
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -130,7 +136,7 @@ export function DeleteTodoThunk(id) {
         let token = localStorage.getItem("LoggedInToken");
         console.log("Deleting todo");
         axios
-            .delete(`${process.env.REACT_APP_API_SERVER}/api/todos/${id}`, {
+            .delete(`http://localhost:8080/api/todolists/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

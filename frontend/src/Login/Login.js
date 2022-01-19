@@ -9,7 +9,7 @@ import { loginUserThunk } from '../store/auth/action'
 export default function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const auth = useSelector((state) => state.authStore.isAuthenticated);
+    const auth = useSelector((state) => state.authStore.auth);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [modal, setModal] = useState(false);
@@ -17,7 +17,7 @@ export default function Login() {
 
     useEffect(() => {
         if (auth === true) {
-            navigate("/");
+            navigate("/todolists");
         }
     }, [auth, navigate]);
 
@@ -27,8 +27,6 @@ export default function Login() {
             password.length > 0 &&
             dispatch(loginUserThunk(username, password)
             )
-        // console.log(process.env.REACT_APP_API_SERVER, 'api');
-
     };
 
     const enteringusername = (e) => {
@@ -57,7 +55,7 @@ export default function Login() {
                     setModal(!modal);
                 }}>Signup</button>
                 <Modal show={modal} onHide={modalClose} centered size="lg" >
-                    <Signup/>
+                    <Signup />
                 </Modal>
             </div>
         </div>

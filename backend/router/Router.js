@@ -11,18 +11,19 @@ class Router {
 
     router.post("/login", this.login.bind(this));
     router.post("/signup", this.signup.bind(this));
-    router.get("/todolist", this.auth.authenticate(), this.list.bind(this));
-    router.post("/todolist", this.auth.authenticate(), this.add.bind(this));
+    router.get("/todolists", this.auth.authenticate(), this.list.bind(this));
+    router.post("/todolists", this.auth.authenticate(), this.add.bind(this));
     router.put(
-      "/todolist",
+      "/todolists",
       this.auth.authenticate(),
       this.update.bind(this)
     );
     router.delete(
-      "/todolist/:id",
+      "/todolists/:id",
       this.auth.authenticate(),
       this.remove.bind(this)
     );
+    router.get('/info', this.auth.authenticate(), this.info.bind(this))
     return router;
   }
 
@@ -46,13 +47,13 @@ class Router {
 
   add(req, res) {
     return this.service
-      .add(req.user[0], req.body.title)
+      .add(req.user[0], req.body.todolists)
       .then((todo) => res.send(todo[0]));
   }
 
   update(req, res) {
     return this.service
-      .update(req.user[0], req.body.title, req.body.id)
+      .update(req.user[0], req.body.todolists, req.body.id)
       .then((todo) => res.send(JSON.stringify(todo)));
   }
 
@@ -63,7 +64,7 @@ class Router {
   }
 
   info(req, res) {
-    console.log(req.user, "<><><>");
+    console.log(req.user, "user");
     return this.service.info(req.user[0]).then((data) => res.send(data));
   }
 }
