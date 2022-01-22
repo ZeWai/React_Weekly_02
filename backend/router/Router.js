@@ -47,13 +47,14 @@ class Router {
 
   add(req, res) {
     return this.service
-      .add(req.user[0], req.body.todolists)
+      .add(req.user[0], req.body.todolists, req.body.status)
       .then((todo) => res.send(todo[0]));
   }
 
   update(req, res) {
+    console.log(req.body.status)
     return this.service
-      .update(req.user[0], req.body.todolists, req.body.id)
+      .update(req.user[0], req.body.todolists, req.body.id, req.body.status)
       .then((todo) => res.send(JSON.stringify(todo)));
   }
 
@@ -67,6 +68,7 @@ class Router {
     console.log(req.user, "user");
     return this.service.info(req.user[0]).then((data) => res.send(data));
   }
+
 }
 
 module.exports = Router;

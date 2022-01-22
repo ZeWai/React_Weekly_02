@@ -10,19 +10,15 @@ module.exports = (knex) => {
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken()
     },
     async (payload, done) => {
-      console.log(payload, 'payload')
       let user = await knex
         .select('*')
         .from('users')
         .where({
           id: payload.id
         })
-
       if (user.length == 0) {
         return done(new Error('User not found'), null)
       } else {
-        console.log('success?')
-        console.log(user)
         return done(null, user)
       }
     }

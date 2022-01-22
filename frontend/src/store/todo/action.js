@@ -52,6 +52,13 @@ export function GetTodos(lists) {
     };
 }
 
+export function CleanTodos(lists) {
+    return {
+        type: CLEAR_TODOS,
+        payload: lists,
+    };
+}
+
 export function GetInfoThunk() {
     return (dispatch) => {
         let token = localStorage.getItem("LoggedInToken");
@@ -69,18 +76,15 @@ export function GetInfoThunk() {
     };
 }
 export function GetTodosThunk() {
-    console.log("thunk todos");
     return (dispatch) => {
         let token = localStorage.getItem("LoggedInToken");
-        console.log("Getting todoss");
         axios
-            .get(`http://localhost:8080/api/todolists`, {
+            .get(`${process.env.REACT_APP_API_SERVER}/api/todolists`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             })
             .then((response) => {
-                console.log(response.data);
                 dispatch(GetTodos(response.data));
             });
     };
@@ -108,14 +112,13 @@ export function AddTodoThunk(todo) {
 }
 
 export function EditTodoThunk(todo) {
-    console.log(todo, 'here')
-
+    console.log(todo, 'current status')
     return (dispatch) => {
         let token = localStorage.getItem("LoggedInToken");
         axios
             .put(
                 `http://localhost:8080/api/todolists`,
-                { todolists: todo.plan, id: todo.id },
+                { todolists: todo.plan, id: todo.id, status: todo.status },
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,

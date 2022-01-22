@@ -15,7 +15,6 @@ const initialState = {
 export function todoReducer(state = initialState, action) {
     switch (action.type) {
         case GET_INFO:
-            console.log(action.payload, "reducer");
             return {
                 todos: state.todos,
                 name: action.payload,
@@ -28,7 +27,6 @@ export function todoReducer(state = initialState, action) {
         case EDIT_TODO:
             let newTodo = action.payload[0];
             let index = state.lists.findIndex((i) => i.id === newTodo.id);
-
             state.lists.splice(index, 1, newTodo);
             return {
                 lists: state.lists,
@@ -45,7 +43,7 @@ export function todoReducer(state = initialState, action) {
         case GET_TODOS:
             return {
                 name: state.name,
-                lists: state.lists.concat(action.payload).sort((a, b) => a.id - b.id),
+                lists: state.lists.concat(action.payload).sort((a, b) => b.id - a.id),
             };
         case CLEAR_TODOS:
             return {

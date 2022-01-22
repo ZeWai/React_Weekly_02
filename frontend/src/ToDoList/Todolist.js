@@ -3,19 +3,21 @@ import { Link } from 'react-router-dom'
 import { useEffect, useState } from "react";
 import { logoutNowThunk } from '../store/auth/action';
 import { useSelector, useDispatch } from 'react-redux';
-
-import { EditTodoThunk, DeleteTodoThunk, GetTodosThunk, AddTodoThunk } from '../store/todo/action';
+import { EditTodoThunk, DeleteTodoThunk, GetTodosThunk, AddTodoThunk, CLEAR_TODOS } from '../store/todo/action';
 
 export default function Todolist() {
     const dispatch = useDispatch()
     const [plan, setPlan] = useState('');
     const [editedplan, setEditedTitle] = useState("");
     const todosFromRedux = useSelector((state) => state.todoStore.lists);
+    const [currentstatus, setCurrentstatus] = useState(Boolean)
     const submitTodo = (e) => {
-        e.preventDefault();
-        const newTodo = { plan };
-        plan.length > 0 && dispatch(AddTodoThunk(newTodo));
-        setPlan("");
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            const newTodo = { plan };
+            plan.length > 0 && dispatch(AddTodoThunk(newTodo));
+            setPlan("");
+        }
     };
 
     const editTodoTitle = (e, id) => {
@@ -25,16 +27,15 @@ export default function Todolist() {
         setPlan("");
     };
 
+    const editStatusTitle = (e, id, status) => {
+        console.log(e.currentTarget)
+        dispatch(EditTodoThunk({ id: id, status: !status }));
+        setCurrentstatus(!status)
+    };
 
     const deleteTodo = (e, i) => {
         dispatch(DeleteTodoThunk(i));
     };
-
-    const EnterPress = (e) => {
-        if (e.key === 'Enter') {
-            submitTodo(e);
-        }
-    }
 
     useEffect(() => {
         dispatch(GetTodosThunk());
@@ -42,25 +43,27 @@ export default function Todolist() {
 
     return (
         <div className={style.todolist}>
-            <h1>ToDo List</h1>
+            <h1 className={style.title}>ToDo List</h1>
             <br />
             <Link to='/login'>
                 <button onClick={() => {
-                    dispatch(logoutNowThunk())
-                }}>Logout</button>
+                    dispatch({ type: CLEAR_TODOS });
+                    dispatch(logoutNowThunk());
+                }} className={style.btn}>I'm Done. Bye</button>
             </Link>
             <br />
             <br />
             <input type="text" value={plan} onChange={(e) => setPlan(e.currentTarget.value)} size='30'
-                placeholder="What is your plan today?" onKeyPress={EnterPress}></input>
+                placeholder="What is your plan today?" onKeyPress={submitTodo} className={style.plan}></input>
             <br />
+            <br />
+            <div className={style.line} />
             <div>
                 {todosFromRedux && todosFromRedux.length >= 1
                     ? todosFromRedux.map((todo) => (
                         <div key={todo.id}>
                             <br />
                             <input
-                                className="todo-item"
                                 id={todo.id}
                                 type="text"
                                 defaultValue={todo.todolists}
@@ -71,13 +74,8 @@ export default function Todolist() {
                                     editTodoTitle(e, todo.id);
                                 }}
                             />
-                            <label>
-                                <input
-                                    type='checkbox' defaultValue={todo.tasksDone}
-                                    className={style.checkbox}
-                                /><span className={style.checkboxlabelbefore}></span>
-                                <span className={style.checkboxlabel}>Done</span></label>
-                            <button
+                            <button onClick={(e) => { editStatusTitle(e, todo.id, todo.status) }} >{todo.status ? 'Done' : 'On Going'}</button>
+                            <button className={style.btn}
                                 onClick={(e) => deleteTodo(e, todo.id)}
                             >Delete</button>
                             <br />

@@ -8,23 +8,45 @@
   background-color: black;
 }
 
-.checkbox {
-  /* display: none; */
+.title {
+  padding-top: 10%;
+  font-size: 5em;
+  text-shadow: 8px 8px blue;
 }
 
-.checkboxlabel {
-  cursor: pointer;
-  position: relative;
-  display: inline-block;
-  background-color: aqua;
-  color: black;
-  padding: 3px 30px;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+.line {
+  border-top: 5px solid white;
+}
+
+.btn {
+  background: transparent;
+  color: white;
   border-radius: 30px;
-  transition: 0.5s;
-  overflow: hidden;
+  margin-left: 20px;
+  padding: 0 15px;
+  border: 1px solid white;
+}
+.btn:hover {
+  background: white;
+  color: black;
+  border: 1px solid black;
 }
 
-.checkboklabel {
-  background: white;
+.plan {
+  background: black;
+  color: white;
+  border: none;
+}
+.plan:active {
+  border: none;
+}
+
+.done {
+  background: aqua;
+  transition: 0.5s;
+}
+
+.ongoing {
+  background: gray;
+  transition: 0.5s;
 }

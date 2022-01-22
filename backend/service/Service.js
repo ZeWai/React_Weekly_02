@@ -57,10 +57,11 @@ class Service {
     return TODO;
   }
 
-  update(user, todolists, id) {
+  update(user, todolists, id, status) {
     let todo = {
       todolists: todolists,
       users_id: user.id,
+      status: status,
     };
     let TODO_NEW = this.knex("lists")
       .update(todo)

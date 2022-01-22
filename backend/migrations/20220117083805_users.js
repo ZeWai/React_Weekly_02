@@ -14,7 +14,7 @@ exports.up = function (knex) {
                 table.integer('users_id').unsigned();
                 table.foreign('users_id').references('users.id');
                 table.string('todolists');
-                table.boolean('tasksDone').defaultTo(false)
+                table.boolean('status').defaultTo(false)
             })
         })
 };
