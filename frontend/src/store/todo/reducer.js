@@ -43,7 +43,7 @@ export function todoReducer(state = initialState, action) {
         case GET_TODOS:
             return {
                 name: state.name,
-                lists: state.lists.concat(action.payload).sort((a, b) => b.id - a.id),
+                lists: [].concat(action.payload).sort((a, b) => b.id - a.id),
             };
         case CLEAR_TODOS:
             return {
