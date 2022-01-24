@@ -24,29 +24,42 @@
   border-radius: 30px;
   margin-left: 20px;
   padding: 0 15px;
-  border: 1px solid white;
+  border: none;
 }
 .btn:hover {
   background: white;
   color: black;
-  border: 1px solid black;
+  border: none;
 }
 
 .plan {
   background: black;
   color: white;
   border: none;
+  border-radius: 30px;
 }
+
+.plan:hover,
 .plan:active {
+  background: white;
+  color: black;
   border: none;
 }
 
 .done {
   background: aqua;
+  border-radius: 30px;
   transition: 0.5s;
+  width: 100px;
+  margin-left: 20px;
+  border: none;
 }
 
 .ongoing {
   background: gray;
   transition: 0.5s;
+  width: 100px;
+  margin-left: 20px;
+  border-radius: 30px;
+  border: none;
 }

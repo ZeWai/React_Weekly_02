@@ -134,10 +134,8 @@ export function EditTodoThunk(todo) {
 // Edit and Delete functionalities
 
 export function DeleteTodoThunk(id) {
-    console.log("removing todo");
     return (dispatch) => {
         let token = localStorage.getItem("LoggedInToken");
-        console.log("Deleting todo");
         axios
             .delete(`http://localhost:8080/api/todolists/${id}`, {
                 headers: {

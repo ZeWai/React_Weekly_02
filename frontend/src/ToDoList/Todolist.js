@@ -27,10 +27,11 @@ export default function Todolist() {
         setPlan("");
     };
 
-    const editStatusTitle = (e, id, status) => {
-        console.log(e.currentTarget)
-        dispatch(EditTodoThunk({ id: id, status: !status }));
-        setCurrentstatus(!status)
+    const editStatus = (id, status) => {
+        status = !currentstatus
+        console.log("status", status)
+        setCurrentstatus(status)
+        dispatch(EditTodoThunk({ id: id, status: status }));
     };
 
     const deleteTodo = (e, i) => {
@@ -40,6 +41,7 @@ export default function Todolist() {
     useEffect(() => {
         dispatch(GetTodosThunk());
     }, [dispatch]);
+
 
     return (
         <div className={style.todolist}>
@@ -73,8 +75,9 @@ export default function Todolist() {
                                 onBlur={(e) => {
                                     editTodoTitle(e, todo.id);
                                 }}
+                                className={style.plan}
                             />
-                            <button onClick={(e) => { editStatusTitle(e, todo.id, todo.status) }} >{todo.status ? 'Done' : 'On Going'}</button>
+                            <button onClick={() => { editStatus(todo.id, todo.status) }} className={todo.status ? `${style.done}` : `${style.ongoing}`}>{todo.status ? 'Done' : 'On Going'}</button>
                             <button className={style.btn}
                                 onClick={(e) => deleteTodo(e, todo.id)}
                             >Delete</button>
